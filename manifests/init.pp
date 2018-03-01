@@ -40,18 +40,14 @@ class kylin (
 ) inherits kylin::params {
 
   if(versioncmp($version, '2.0.0') >= 0) {
-
     $basefilename             = "apache-kylin-${version}-bin-hbase${hbase_version}.tar.gz"
     $default_kylin_properties = $kylin::params::default_kylin_2_properties
-
   } else {
-
     $basefilename             = "apache-kylin-${version}-hbase${hbase_version}-bin.tar.gz"
     $default_kylin_properties = $kylin::params::default_kylin_1_properties
-
   }
 
-  $package_url  = "${mirror_url}/kylin/apache-kylin-${version}/${basefilename}"
+  $package_url = "${mirror_url}/kylin/apache-kylin-${version}/${basefilename}"
 
   if $install_java {
     java::oracle { "jdk${java_version}":
