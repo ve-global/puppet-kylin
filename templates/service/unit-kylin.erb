@@ -1,0 +1,23 @@
+[Unit]
+Description=Apache Kylin
+Documentation=http://kylin.apache.org
+
+[Service]
+Type=forking
+User=<%= scope.lookupvar('kylin::kylin_user') %>
+Group=<%= scope.lookupvar('kylin::kylin_group') %>
+Environment='JAVA_HOME=<%= scope.lookupvar('kylin::java_home') %>'
+Environment='SPARK_HOME=/usr/hdp/2.5.3.0-37/spark'
+Environment='HIVE_CONF=/usr/hdp/2.5.3.0-37/hive/conf'
+Environment='HCAT_HOME=/usr/hdp/2.5.3.0-37/hive-hcatalog'
+SyslogIdentifier=<%= scope.lookupvar('kylin::service_name') %>
+ExecStart=<%= scope.lookupvar('kylin::install_dir') %>/bin/kylin.sh start
+ExecStop=<%= scope.lookupvar('kylin::install_dir') %>/bin/kylin.sh stop
+PIDFile=<%= scope.lookupvar('kylin::install_dir') %>/pid
+
+LimitNOFILE=65536
+LimitCORE= infinity
+
+[Install]
+WantedBy=multi-user.target
+
