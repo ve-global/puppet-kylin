@@ -38,11 +38,7 @@ class kylin (
 
 
 ) inherits kylin::params {
-  if (versioncmp($version, '2.3.0') == 0) {
-    $basefilename             = "apache-kylin-${version}-hbase${hbase_version}-bin.tar.gz"
-    $default_kylin_properties = $kylin::params::default_kylin_1_properties
-  }
-  elsif (versioncmp($version, '2.0.0') >= 0 {
+  elsif (versioncmp($version, '2.0.0') <= 0 {
     $basefilename             = "apache-kylin-${version}-bin-hbase${hbase_version}.tar.gz"
     $default_kylin_properties = $kylin::params::default_kylin_2_properties
   }
