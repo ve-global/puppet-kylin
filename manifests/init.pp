@@ -16,6 +16,9 @@ class kylin (
   $install_java                         = $kylin::params::install_java,
   $java_version                         = $kylin::params::java_version,
   $java_home                            = $kylin::params::java_home,
+  $spark_home                           = $kylin::params::spark_home,
+  $hive_home                            = $kylin::params::hive_home,
+  $hcat_home                            = $kylin::params::hcat_home,
 
   $kylin_group                          = $kylin::params::kylin_group,
   $kylin_gid                            = $kylin::params::kylin_gid,

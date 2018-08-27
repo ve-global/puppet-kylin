@@ -19,6 +19,9 @@ class kylin::params {
   $install_java               = false
   $java_version               = '8'
   $java_home                  = '/usr/jdk64/jdk1.8.0_77'
+  $spark_home                 = '/usr/hdp/2.5.3.0-37/spark'
+  $hive_home                  = '/usr/hdp/2.5.3.0-37/hive'
+  $hcat_home                  = '/usr/hdp/2.5.3.0-37/hive-hcatalog'
 
   $kylin_group                = 'kylin'
   $kylin_gid                  = undef
