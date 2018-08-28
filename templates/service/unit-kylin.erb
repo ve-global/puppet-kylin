@@ -7,9 +7,9 @@ Type=forking
 User=<%= scope.lookupvar('kylin::kylin_user') %>
 Group=<%= scope.lookupvar('kylin::kylin_group') %>
 Environment='JAVA_HOME=<%= scope.lookupvar('kylin::java_home') %>'
-Environment='SPARK_HOME=/usr/hdp/2.5.3.0-37/spark'
-Environment='HIVE_CONF=/usr/hdp/2.5.3.0-37/hive/conf'
-Environment='HCAT_HOME=/usr/hdp/2.5.3.0-37/hive-hcatalog'
+Environment='SPARK_HOME=<%= scope.lookupvar('kylin::spark_home') %>'
+Environment='HIVE_CONF=<%= scope.lookupvar('kylin::hive_home') %>/conf'
+Environment='HCAT_HOME=<%= scope.lookupvar('kylin::hcat_home') %>'
 SyslogIdentifier=<%= scope.lookupvar('kylin::service_name') %>
 ExecStart=<%= scope.lookupvar('kylin::install_dir') %>/bin/kylin.sh start
 ExecStop=<%= scope.lookupvar('kylin::install_dir') %>/bin/kylin.sh stop
