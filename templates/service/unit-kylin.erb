@@ -3,9 +3,11 @@ Description=Apache Kylin
 Documentation=http://kylin.apache.org
 
 [Service]
+TimeoutSec=5min
 Type=forking
 User=<%= scope.lookupvar('kylin::kylin_user') %>
 Group=<%= scope.lookupvar('kylin::kylin_group') %>
+Environment='PATH=<%= scope.lookupvar('kylin::java_home') %>/bin:<%= @facts['path'] %>'
 Environment='JAVA_HOME=<%= scope.lookupvar('kylin::java_home') %>'
 Environment='SPARK_HOME=<%= scope.lookupvar('kylin::spark_home') %>'
 Environment='HIVE_CONF=<%= scope.lookupvar('kylin::hive_home') %>/conf'
