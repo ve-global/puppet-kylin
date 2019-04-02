@@ -38,9 +38,8 @@ class kylin (
   $custom_kylin_server_log4j_properties = {},
   $custom_kylin_tools_log4j_properties  = {},
   $kylin_jvm_settings                   = $kylin::params::kylin_jvm_settings,
-
-
 ) inherits kylin::params {
+
   if(versioncmp($version, '2.0.0') >= 0 ) {
     $basefilename             = "apache-kylin-${version}-bin-hbase${hbase_version}.tar.gz"
     $default_kylin_properties = $kylin::params::default_kylin_2_properties
@@ -72,7 +71,7 @@ class kylin (
   }
 
   $kylin_properties              = deep_merge($default_kylin_properties, $custom_kylin_properties)
-  $kylin_hive_conf               = deep_merge($kylin::params::default_kylin_hive_conf, $custom_kylin_properties)
+  $kylin_hive_conf               = deep_merge($kylin::params::default_kylin_hive_conf, $custom_kylin_hive_conf)
   $kylin_job_conf                = deep_merge($kylin::params::default_kylin_job_conf, $custom_kylin_job_conf)
   $kylin_job_conf_inmem          = deep_merge($kylin::params::default_kylin_job_conf_inmem, $custom_kylin_job_conf_inmem)
   $kylin_kafka_consumer          = deep_merge($kylin::params::default_kylin_kafka_consumer, $custom_kylin_kafka_consumer)
