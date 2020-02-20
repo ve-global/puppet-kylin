@@ -2,7 +2,7 @@ class kylin::params {
 
   #installation related definitions
   $version                    = '1.6.0'
-  $hbase_version              = '1.x'
+  $dist_version              = 'hbase1.x'
   $install_dir                = '/opt/kylin'
   $mirror_url                 = 'http://apache.rediris.es'
   $mirror_username            = undef

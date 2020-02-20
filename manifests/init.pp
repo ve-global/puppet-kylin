@@ -1,6 +1,6 @@
 class kylin (
   $version                              = $kylin::params::version,
-  $hbase_version                        = $kylin::params::hbase_version,
+  $dist_version                         = $kylin::params::dist_version,
   $mirror_url                           = $kylin::params::mirror_url,
   $mirror_username                      = $kylin::params::mirror_username,
   $mirror_password                      = $kylin::params::mirror_password,
@@ -41,10 +41,10 @@ class kylin (
 ) inherits kylin::params {
 
   if(versioncmp($version, '2.0.0') >= 0 ) {
-    $basefilename             = "apache-kylin-${version}-bin-hbase${hbase_version}.tar.gz"
+    $basefilename             = "apache-kylin-${version}-bin-${dist_version}.tar.gz"
     $default_kylin_properties = $kylin::params::default_kylin_2_properties
   } else {
-    $basefilename             = "apache-kylin-${version}-hbase${hbase_version}-bin.tar.gz"
+    $basefilename             = "apache-kylin-${version}-${dist_version}-bin.tar.gz"
     $default_kylin_properties = $kylin::params::default_kylin_1_properties
   }
 
