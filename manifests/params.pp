@@ -1,8 +1,8 @@
 class kylin::params {
 
   #installation related definitions
-  $version                    = '1.6.0'
-  $dist_version              = 'hbase1.x'
+  $version                    = '1.6.4'
+  $dist_version               = 'hbase1.x'
   $install_dir                = '/opt/kylin'
   $mirror_url                 = 'http://apache.rediris.es'
   $mirror_username            = undef
@@ -34,6 +34,85 @@ class kylin::params {
   $service_enable             = true
 
   $kylin_jvm_settings         = '-Xms1024M -Xmx4096M -Xss1024K -XX:MaxPermSize=128M -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:$KYLIN_HOME/logs/kylin.gc.$$ -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=64M'
+
+  $default_kylin_3_properties = {}
+
+  $default_kylin_3_hive_conf    = {
+    'dfs.replication'                               => 2,
+    'hive.exec.compress.output'                     => true,
+    'hive.auto.convert.join'                        => true,
+    'hive.auto.convert.join.noconditionaltask'      => true,
+    'hive.auto.convert.join.noconditionaltask.size' => 100000000,
+    'mapreduce.job.split.metainfo.maxsize'          => -1,
+    'hive.stats.autogather'                         => true,
+    'hive.merge.mapfiles'                           => false,
+    'hive.merge.mapredfiles'                        => false,
+  }
+
+  $default_kylin_3_job_conf     = {
+    'mapreduce.job.split.metainfo.maxsize'            => -1,
+    'mapreduce.map.output.compress'                   => true,
+    'mapreduce.output.fileoutputformat.compress'      => true,
+    'mapreduce.output.fileoutputformat.compress.type' => 'BLOCK',
+    'mapreduce.job.max.split.locations'               => 2000,
+    'dfs.replication'                                 => 2,
+    'mapreduce.task.timeout'                          => 3600000,
+  }
+
+  $default_kylin_3_job_conf_inmem = {
+    'mapreduce.job.is-mem-hungry'                     => 'true',
+    'mapreduce.job.split.metainfo.maxsize'            => -1,
+    'mapreduce.map.output.compress'                   => true,
+    'mapreduce.output.fileoutputformat.compress'      => true,
+    'mapreduce.output.fileoutputformat.compress.type' => 'BLOCK',
+    'mapreduce.job.max.split.locations'               => 2000,
+    'dfs.replication'                                 => 2,
+    'mapreduce.task.timeout'                          => 7200000,
+    'mapreduce.map.memory.mb'                         => 3072,
+    'mapreduce.map.java.opts'                         => '-Xmx2700m -XX:OnOutOfMemoryError=\'kill -9 %p\'',
+    'mapreduce.task.io.sort.mb'                       => 200,
+  }
+
+  $default_kylin_3_kafka_consumer          = {
+    'session.timeout.ms' => 30000,
+  }
+  $default_kylin_3_server_log4j_properties = {
+    'log4j.appender.file'                                                          => 'org.apache.log4j.RollingFileAppender',
+    'log4j.appender.file.layout'                                                   => 'org.apache.log4j.PatternLayout',
+    'log4j.appender.file.File'                                                     => '${catalina.home}/../logs/kylin.log',
+    'log4j.appender.file.layout.ConversionPattern'                                 => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
+    'log4j.appender.file.Append'                                                   => 'true',
+    'log4j.appender.file.MaxFileSize'                                              => '268435456',
+    'log4j.appender.file.MaxBackupIndex'                                           => '10',
+    'log4j.appender.realtime'                                                      => 'org.apache.log4j.RollingFileAppender',
+    'log4j.appender.realtime.layout'                                               => 'org.apache.log4j.PatternLayout',
+    'log4j.appender.realtime.File'                                                 => '${catalina.home}/../logs/streaming_coordinator.log',
+    'log4j.appender.realtime.layout.ConversionPattern'                             => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
+    'log4j.appender.realtime.Append'                                               => 'true',
+    'log4j.appender.realtime.MaxFileSize'                                          => '268435456',
+    'log4j.appender.realtime.MaxBackupIndex'                                       => '10',
+    'log4j.rootLogger'                                                             => 'INFO',
+    'log4j.logger.org.apache.kylin'                                                => 'DEBUG,file',
+    'log4j.logger.org.springframework'                                             => 'WARN,file',
+    'log4j.logger.org.springframework.security'                                    => 'INFO,file',
+    'log4j.additivity.logger.org.apache.kylin.stream'                              => 'false',
+    'log4j.logger.org.apache.kylin.stream'                                         => 'TRACE,realtime',
+    'log4j.logger.org.apache.kylin.job'                                            => 'DEBUG,realtime',
+    'log4j.logger.org.apache.kylin.rest.service.StreamingCoordinatorService'       => 'DEBUG,realtime',
+    'log4j.logger.org.apache.kylin.rest.service.StreamingV2Service'                => 'DEBUG,realtime',
+    'log4j.logger.org.apache.kylin.rest.controller.StreamingCoordinatorController' => 'DEBUG,realtime',
+    'log4j.logger.org.apache.kylin.rest.controller.StreamingV2Controller'          => 'DEBUG,realtime',
+  }
+  $default_kylin_3_tools_log4j_properties  = {
+    'log4j.rootLogger'                               => 'INFO,stderr',
+    'log4j.appender.stderr'                          => 'org.apache.log4j.ConsoleAppender',
+    'log4j.appender.stderr.Target'                   => 'System.err',
+    'log4j.appender.stderr.layout'                   => 'org.apache.log4j.PatternLayout',
+    'log4j.appender.stderr.layout.ConversionPattern' => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
+    'log4j.logger.org.apache.kylin',                 => 'DEBUG',
+    'log4j.logger.org.springframework',              => 'WARN',
+    'log4j.logger.org.apache.kylin.tool.shaded'      => 'INFO',
+  }
 
   $default_kylin_2_properties = {
     ### METADATA | ENV ###
