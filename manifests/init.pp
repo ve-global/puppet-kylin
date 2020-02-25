@@ -48,7 +48,7 @@ class kylin (
     $default_kylin_job_conf_inmem          = $kylin::params::default_kylin_3_job_conf_inmem
     $default_kylin_kafka_consumer          = $kylin::params::default_kylin_3_kafka_consumer
     $default_kylin_server_log4j_properties = $kylin::params::default_kylin_3_server_log4j_properties
-    $default_kylin_tools_log4j_properties  = $kylin::parmas::default_kylin_3_tools_log4j_properties
+    $default_kylin_tools_log4j_properties  = $kylin::params::default_kylin_3_tools_log4j_properties
   } elsif (versioncmp($version, '2.0.0') >= 0  ) and (versioncmp($version, '3.0.0') < 0){
     $basefilename                          = "apache-kylin-${version}-bin-${dist_version}.tar.gz"
     $default_kylin_properties              = $kylin::params::default_kylin_2_properties
@@ -57,7 +57,7 @@ class kylin (
     $default_kylin_job_conf_inmem          = $kylin::params::default_kylin_job_conf_inmem
     $default_kylin_kafka_consumer          = $kylin::params::default_kylin_kafka_consumer
     $default_kylin_server_log4j_properties = $kylin::params::default_kylin_server_log4j_properties
-    $default_kylin_tools_log4j_properties  = $kylin::parmas::default_kylin_tools_log4j_properties
+    $default_kylin_tools_log4j_properties  = $kylin::params::default_kylin_tools_log4j_properties
   } else {
     $basefilename                          = "apache-kylin-${version}-${dist_version}-bin.tar.gz"
     $default_kylin_properties              = $kylin::params::default_kylin_1_properties
@@ -66,7 +66,7 @@ class kylin (
     $default_kylin_job_conf_inmem          = $kylin::params::default_kylin_job_conf_inmem
     $default_kylin_kafka_consumer          = $kylin::params::default_kylin_kafka_consumer
     $default_kylin_server_log4j_properties = $kylin::params::default_kylin_server_log4j_properties
-    $default_kylin_tools_log4j_properties  = $kylin::parmas::default_kylin_tools_log4j_properties
+    $default_kylin_tools_log4j_properties  = $kylin::params::default_kylin_tools_log4j_properties
   }
 
   $package_url = "${mirror_url}/kylin/apache-kylin-${version}/${basefilename}"
