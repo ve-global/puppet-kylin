@@ -109,8 +109,8 @@ class kylin::params {
     'log4j.appender.stderr.Target'                   => 'System.err',
     'log4j.appender.stderr.layout'                   => 'org.apache.log4j.PatternLayout',
     'log4j.appender.stderr.layout.ConversionPattern' => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
-    'log4j.logger.org.apache.kylin',                 => 'DEBUG',
-    'log4j.logger.org.springframework',              => 'WARN',
+    'log4j.logger.org.apache.kylin'                  => 'DEBUG',
+    'log4j.logger.org.springframework'               => 'WARN',
     'log4j.logger.org.apache.kylin.tool.shaded'      => 'INFO',
   }
 
