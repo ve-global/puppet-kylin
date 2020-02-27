@@ -53,7 +53,7 @@ class kylin::install {
       ],
       before          => File[$kylin::install_dir],
     }
-    if (versioncmp($version, '3.0.0') >= 0){
+    if (versioncmp($kylin::version, '3.0.0') >= 0){
       archive { "${kylin::extract_dir}/tomcat/lib/commons-configuration-1.6.jar":
         ensure   => present,
         source   => 'https://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar',
