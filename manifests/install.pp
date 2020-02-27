@@ -63,6 +63,7 @@ class kylin::install {
         group    => $kylin::kylin_group,
         require  => Archive["${kylin::download_dir}/${kylin::basefilename}"],
         before   => File[$kylin::install_dir],
+      }
     }
   } else {
     package { $kylin::package_name:
