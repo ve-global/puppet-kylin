@@ -41,14 +41,6 @@ class kylin::config {
     require => File[$kylin::config_dir],
   }
 
-  file { "${kylin::config_dir}/kylin-server-log4j.properties":
-    ensure  => file,
-    owner   => $kylin::kylin_user,
-    group   => $kylin::kylin_group,
-    content => template('kylin/config/kylin-server-log4j.properties.erb'),
-    require => File[$kylin::config_dir],
-  }
-
   if (versioncmp($kylin::version, '2.0.0') >= 0) {
 
     file { "${kylin::config_dir}/kylin-kafka-consumer.xml":
@@ -56,14 +48,6 @@ class kylin::config {
       owner   => $kylin::kylin_user,
       group   => $kylin::kylin_group,
       content => template('kylin/config/kylin-kafka-consumer.xml.erb'),
-      require => File[$kylin::config_dir],
-    }
-
-    file { "${kylin::config_dir}/kylin-tools-log4j.properties":
-      ensure  => file,
-      owner   => $kylin::kylin_user,
-      group   => $kylin::kylin_group,
-      content => template('kylin/config/kylin-tools-log4j.properties.erb'),
       require => File[$kylin::config_dir],
     }
 

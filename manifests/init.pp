@@ -20,8 +20,10 @@ class kylin (
   $hive_home                            = $kylin::params::hive_home,
   $hcat_home                            = $kylin::params::hcat_home,
 
+  $create_user                          = $kylin::params::create_user,
   $kylin_group                          = $kylin::params::kylin_group,
   $kylin_gid                            = $kylin::params::kylin_gid,
+  $create_group                         = $kylin::params::create_group,
   $kylin_user                           = $kylin::params::kylin_user,
   $kylin_uid                            = $kylin::params::kylin_uid,
 
@@ -35,38 +37,33 @@ class kylin (
   $custom_kylin_job_conf                = {},
   $custom_kylin_job_conf_inmem          = {},
   $custom_kylin_kafka_consumer          = {},
-  $custom_kylin_server_log4j_properties = {},
-  $custom_kylin_tools_log4j_properties  = {},
   $kylin_jvm_settings                   = $kylin::params::kylin_jvm_settings,
 ) inherits kylin::params {
 
   if (versioncmp($version, '3.0.0') >= 0){
     $basefilename                          = "apache-kylin-${version}-bin-${dist_version}.tar.gz"
+    $service_template                      = 'unit-kylin3.erb'
     $default_kylin_properties              = $kylin::params::default_kylin_3_properties
     $default_kylin_hive_conf               = $kylin::params::default_kylin_3_hive_conf
     $default_kylin_job_conf                = $kylin::params::default_kylin_3_job_conf
     $default_kylin_job_conf_inmem          = $kylin::params::default_kylin_3_job_conf_inmem
     $default_kylin_kafka_consumer          = $kylin::params::default_kylin_3_kafka_consumer
-    $default_kylin_server_log4j_properties = $kylin::params::default_kylin_3_server_log4j_properties
-    $default_kylin_tools_log4j_properties  = $kylin::params::default_kylin_3_tools_log4j_properties
   } elsif (versioncmp($version, '2.0.0') >= 0  ) and (versioncmp($version, '3.0.0') < 0){
     $basefilename                          = "apache-kylin-${version}-bin-${dist_version}.tar.gz"
+    $service_template                      = 'unit-kylin.erb'
     $default_kylin_properties              = $kylin::params::default_kylin_2_properties
     $default_kylin_hive_conf               = $kylin::params::default_kylin_hive_conf
     $default_kylin_job_conf                = $kylin::params::default_kylin_job_conf
     $default_kylin_job_conf_inmem          = $kylin::params::default_kylin_job_conf_inmem
     $default_kylin_kafka_consumer          = $kylin::params::default_kylin_kafka_consumer
-    $default_kylin_server_log4j_properties = $kylin::params::default_kylin_server_log4j_properties
-    $default_kylin_tools_log4j_properties  = $kylin::params::default_kylin_tools_log4j_properties
   } else {
     $basefilename                          = "apache-kylin-${version}-${dist_version}-bin.tar.gz"
+    $service_template                      = 'unit-kylin.erb'
     $default_kylin_properties              = $kylin::params::default_kylin_1_properties
     $default_kylin_hive_conf               = $kylin::params::default_kylin_hive_conf
     $default_kylin_job_conf                = $kylin::params::default_kylin_job_conf
     $default_kylin_job_conf_inmem          = $kylin::params::default_kylin_job_conf_inmem
     $default_kylin_kafka_consumer          = $kylin::params::default_kylin_kafka_consumer
-    $default_kylin_server_log4j_properties = $kylin::params::default_kylin_server_log4j_properties
-    $default_kylin_tools_log4j_properties  = $kylin::params::default_kylin_tools_log4j_properties
   }
 
   $package_url = "${mirror_url}/kylin/apache-kylin-${version}/${basefilename}"
@@ -80,15 +77,19 @@ class kylin (
     }
   }
 
-  group { $kylin_group:
-    ensure => present,
-    gid    => $kylin_uid,
-  }
+  if $create_group {
 
-  user { $kylin_user:
-    ensure  => present,
-    uid     => $kylin_uid,
-    require => Group[$kylin_group],
+    group { $kylin_group:
+      ensure => present,
+      gid    => $kylin_uid,
+    }
+  }
+  if $create_user {
+    user { $kylin_user:
+      ensure  => present,
+      uid     => $kylin_uid,
+      require => Group[$kylin_group],
+    }
   }
 
   $kylin_properties              = deep_merge($default_kylin_properties, $custom_kylin_properties)
@@ -96,8 +97,6 @@ class kylin (
   $kylin_job_conf                = deep_merge($default_kylin_job_conf, $custom_kylin_job_conf)
   $kylin_job_conf_inmem          = deep_merge($default_kylin_job_conf_inmem, $custom_kylin_job_conf_inmem)
   $kylin_kafka_consumer          = deep_merge($default_kylin_kafka_consumer, $custom_kylin_kafka_consumer)
-  $kylin_server_log4j_properties = deep_merge($default_kylin_server_log4j_properties, $custom_kylin_server_log4j_properties)
-  $kylin_tools_log4j_properties  = deep_merge($default_kylin_tools_log4j_properties, $custom_kylin_tools_log4j_properties)
 
   anchor { '::kylin::start': } ->
   class { '::kylin::install': } ->

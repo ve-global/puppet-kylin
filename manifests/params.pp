@@ -23,8 +23,10 @@ class kylin::params {
   $hive_home                  = '/usr/hdp/2.5.3.0-37/hive'
   $hcat_home                  = '/usr/hdp/2.5.3.0-37/hive-hcatalog'
 
+  $create_group               = true
   $kylin_group                = 'kylin'
   $kylin_gid                  = undef
+  $create_user                = true
   $kylin_user                 = 'kylin'
   $kylin_uid                  = undef
 
@@ -75,43 +77,6 @@ class kylin::params {
 
   $default_kylin_3_kafka_consumer          = {
     'session.timeout.ms' => 30000,
-  }
-  $default_kylin_3_server_log4j_properties = {
-    'log4j.appender.file'                                                          => 'org.apache.log4j.RollingFileAppender',
-    'log4j.appender.file.layout'                                                   => 'org.apache.log4j.PatternLayout',
-    'log4j.appender.file.File'                                                     => '${catalina.home}/../logs/kylin.log',
-    'log4j.appender.file.layout.ConversionPattern'                                 => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
-    'log4j.appender.file.Append'                                                   => 'true',
-    'log4j.appender.file.MaxFileSize'                                              => '268435456',
-    'log4j.appender.file.MaxBackupIndex'                                           => '10',
-    'log4j.appender.realtime'                                                      => 'org.apache.log4j.RollingFileAppender',
-    'log4j.appender.realtime.layout'                                               => 'org.apache.log4j.PatternLayout',
-    'log4j.appender.realtime.File'                                                 => '${catalina.home}/../logs/streaming_coordinator.log',
-    'log4j.appender.realtime.layout.ConversionPattern'                             => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
-    'log4j.appender.realtime.Append'                                               => 'true',
-    'log4j.appender.realtime.MaxFileSize'                                          => '268435456',
-    'log4j.appender.realtime.MaxBackupIndex'                                       => '10',
-    'log4j.rootLogger'                                                             => 'INFO',
-    'log4j.logger.org.apache.kylin'                                                => 'DEBUG,file',
-    'log4j.logger.org.springframework'                                             => 'WARN,file',
-    'log4j.logger.org.springframework.security'                                    => 'INFO,file',
-    'log4j.additivity.logger.org.apache.kylin.stream'                              => 'false',
-    'log4j.logger.org.apache.kylin.stream'                                         => 'TRACE,realtime',
-    'log4j.logger.org.apache.kylin.job'                                            => 'DEBUG,realtime',
-    'log4j.logger.org.apache.kylin.rest.service.StreamingCoordinatorService'       => 'DEBUG,realtime',
-    'log4j.logger.org.apache.kylin.rest.service.StreamingV2Service'                => 'DEBUG,realtime',
-    'log4j.logger.org.apache.kylin.rest.controller.StreamingCoordinatorController' => 'DEBUG,realtime',
-    'log4j.logger.org.apache.kylin.rest.controller.StreamingV2Controller'          => 'DEBUG,realtime',
-  }
-  $default_kylin_3_tools_log4j_properties  = {
-    'log4j.rootLogger'                               => 'INFO,stderr',
-    'log4j.appender.stderr'                          => 'org.apache.log4j.ConsoleAppender',
-    'log4j.appender.stderr.Target'                   => 'System.err',
-    'log4j.appender.stderr.layout'                   => 'org.apache.log4j.PatternLayout',
-    'log4j.appender.stderr.layout.ConversionPattern' => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
-    'log4j.logger.org.apache.kylin'                  => 'DEBUG',
-    'log4j.logger.org.springframework'               => 'WARN',
-    'log4j.logger.org.apache.kylin.tool.shaded'      => 'INFO',
   }
 
   $default_kylin_2_properties = {
@@ -320,28 +285,6 @@ class kylin::params {
 
   $default_kafka_consumer     = {
     'session.timeout.ms' => 30000,
-  }
-
-  $default_kylin_server_log4j_properties = {
-    'log4j.appender.file'                          => 'org.apache.log4j.DailyRollingFileAppender',
-    'log4j.appender.file.layout'                   => 'org.apache.log4j.PatternLayout',
-    'log4j.appender.file.File'                     => '${catalina.home}/../logs/kylin.log', # lint:ignore:single_quote_string_with_variables
-    'log4j.appender.file.layout.ConversionPattern' => '%d{ISO8601} %-5p [%t] %c{2}:%L : %m%n',
-    'log4j.appender.file.Append'                   => true,
-    'log4j.rootLogger=INFO,file'                   => 'INFO,file',
-    'log4j.logger.org.apache.kylin'                => 'DEBUG',
-    'log4j.logger.org.springframework'             => 'WARN',
-    'log4j.logger.org.springframework.security'    => 'INFO',
-  }
-
-  $default_kylin_tools_log4j_properties = {
-    'log4j.rootLogger'                               => 'INFO,stderr',
-    'log4j.appender.stderr'                          => 'org.apache.log4j.ConsoleAppender',
-    'log4j.appender.stderr.Target'                   => 'System.err',
-    'log4j.appender.stderr.layout'                   => 'org.apache.log4j.PatternLayout',
-    'log4j.appender.stderr.layout.ConversionPattern' => '%d{ISO8601} %-5p [%t %c{1}:%L]: %m%n',
-    'log4j.logger.org.apache.kylin'                  => 'ERROR',
-    'log4j.logger.org.springframework'               => 'WARN',
   }
 
 }
