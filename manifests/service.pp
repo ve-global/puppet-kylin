@@ -13,7 +13,7 @@ class kylin::service {
         ensure  => file,
         path    => "/etc/systemd/system/${kylin::service_name}.service",
         mode    => '0644',
-        content => template("kylin/service/${service_template}"),
+        content => template("kylin/service/${kylin::service_template}"),
       }
 
       file { "/etc/init.d/${kylin::service_name}":
