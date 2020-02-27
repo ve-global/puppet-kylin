@@ -83,9 +83,9 @@ class kylin (
       ensure => present,
       gid    => $kylin_uid,
       before => [
-        File [ $download_dir ],
-        File [ $extract_dir ],
-        File [ $log_dir ],
+        File[ $download_dir ],
+        File[ $extract_dir ],
+        File[ $log_dir ],
       ]
     }
   }
@@ -95,9 +95,9 @@ class kylin (
       uid     => $kylin_uid,
       require => Group[$kylin_group],
       before => [
-        File [ $download_dir ],
-        File [ $extract_dir ],
-        File [ $log_dir ],
+        File[ $download_dir ],
+        File[ $extract_dir ],
+        File[ $log_dir ],
       ]
     }
   }
