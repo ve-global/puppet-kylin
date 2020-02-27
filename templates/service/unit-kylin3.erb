@@ -10,7 +10,7 @@ Group=<%= scope.lookupvar('kylin::kylin_group') %>
 Environment='PATH=<%= scope.lookupvar('kylin::java_home') %>/bin:<%= @facts['path'] %>'
 Environment='JAVA_HOME=<%= scope.lookupvar('kylin::java_home') %>'
 Environment='SPARK_HOME=<%= scope.lookupvar('kylin::spark_home') %>'
-Environment='HIVE_CONF=<%= scope.lookupvar('kylin::hive_home') %>'
+Environment='HIVE_HOME=<%= scope.lookupvar('kylin::hive_home') %>'
 Environment='HCAT_HOME=<%= scope.lookupvar('kylin::hcat_home') %>'
 SyslogIdentifier=<%= scope.lookupvar('kylin::service_name') %>
 ExecStart=<%= scope.lookupvar('kylin::install_dir') %>/bin/kylin.sh start --reload-dependency
