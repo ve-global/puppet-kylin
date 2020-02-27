@@ -82,6 +82,13 @@ class kylin (
     group { $kylin_group:
       ensure => present,
       gid    => $kylin_uid,
+      before => [
+        File [ $kylin::download_dir ],
+        File [ $kylin::extract_dir ],
+        File [ $kylin::log_dir ],
+        
+
+      ]
     }
   }
   if $create_user {

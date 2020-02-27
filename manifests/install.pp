@@ -48,8 +48,6 @@ class kylin::install {
       require         => [
         File[$kylin::download_dir],
         File[$kylin::extract_dir],
-        Group[$kylin::kylin_group],
-        User[$kylin::kylin_user],
       ],
       before          => File[$kylin::install_dir],
     }
