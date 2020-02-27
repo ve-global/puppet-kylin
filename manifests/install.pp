@@ -44,7 +44,7 @@ class kylin::install {
         ensure   => present,
         source   => 'https://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar',
         creates  => "${kylin::extract_dir}/tomcat/lib/commons-configuration-1.6.jar",
-        cleanup  => true,
+        cleanup  => false,
         username => $kylin::kylin_user,
         group    => $kylin::kylin_group,
         require  => Archive["${kylin::download_dir}/${kylin::basefilename}"],
