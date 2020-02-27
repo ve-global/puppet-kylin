@@ -4,30 +4,18 @@ class kylin::install {
     ensure  => directory,
     owner   => $kylin::kylin_user,
     group   => $kylin::kyline_group,
-    require => [
-      Group[ $kylin::kylin_group ],
-      User[ $kylin::kylin_user ],
-    ],
   }
 
   file { $kylin::extract_dir:
     ensure  => directory,
     owner   => $kylin::kylin_user,
     group   => $kylin::kylin_group,
-    require => [
-      Group[ $kylin::kylin_group ],
-      User[ $kylin::kylin_user ],
-    ],
   }
 
   file { $kylin::log_dir:
     ensure  => directory,
     owner   => $kylin::kylin_user,
     group   => $kylin::kylin_group,
-    require => [
-      Group[ $kylin::kylin_group ],
-      User[ $kylin::kylin_user ],
-    ],
   }
 
   if $kylin::package_name == undef {
